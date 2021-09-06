@@ -1,5 +1,5 @@
 {
-  "name": "untitled",
+  "name": "qtestmail",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -18,6 +18,8 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "dotenv": "^10.0.0",
+    "node-fetch": "^3.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

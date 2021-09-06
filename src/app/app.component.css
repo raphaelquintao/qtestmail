@@ -1,0 +1,278 @@
+
+#wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER & FOOTER */
+header, footer {
+  background-color: var(--bg-color-ui);
+  padding: 0 13px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 45px;
+  flex: 0 auto;
+  border-top: 1px solid var(--inner-border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+header hr, footer hr {
+  height: 75%;
+  align-self: center;
+  border: 0;
+  width: 1px;
+  background-color: var(--inner-shadow-color);
+  margin: 0 10px;
+}
+
+header {
+}
+
+footer {
+  height: 35px;
+}
+
+section {
+  border-top: 1px solid var(--inner-border-color);
+  border-bottom: 1px solid var(--border-color);
+  box-sizing: border-box;
+  display: flex;
+  flex: 2;
+  background: var(--bg-color-ui);
+  overflow: hidden;
+  /*width: 85%;*/
+  /*margin: auto;*/
+}
+
+
+section > hr {
+  height: 100%;
+  align-self: center;
+  border: 0;
+  width: 1px;
+  background-color: var(--border-color);
+  margin: 0 0px;
+}
+
+aside {
+  box-sizing: border-box;
+}
+
+aside.sidebar {
+  width: 350px;
+  overflow: hidden;
+}
+
+aside.sidebar:hover {
+  overflow: auto;
+}
+
+aside.sidebar .card:not(:first-child) {
+  border-top: 1px solid var(--inner-border-color);
+  /*border-bottom: 1px solid var(--inner-border-color);*/
+}
+
+
+aside.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+aside.content header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+  border-top: 0;
+  /*border-bottom: 0;*/
+  /*border-bottom: 1px solid var(--inner-border-color);*/
+  height: auto;
+}
+
+aside.content header + header {
+  border-top: 1px solid var(--inner-border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+aside.content footer {
+  /*border-top: 0;*/
+  border-bottom: 0;
+  /*border-bottom: 1px solid var(--inner-border-color);*/
+}
+
+article {
+  /*border-top: 1px solid var(--border-color);*/
+  /*border-bottom: 1px solid var(--border-color);*/
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: auto;
+  background-color: var(--bg-color-ui2);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card.selected,
+.card:hover {
+  background-color: var(--inner-border-color);
+  cursor: pointer;
+}
+
+.title {
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.subtitle {
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.attachments {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+label {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+label > * {
+  margin-left: 5px;
+}
+
+input[type="checkbox"] {
+  /*cursor: pointer;*/
+}
+
+.mono {
+  font-family: monospace;
+}
+
+.deleted * {
+  opacity: 0.7;
+}
+
+.deleted .title {
+  /*text-decoration: line-through;*/
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.btn {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.header_right {
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  flex: 1;
+}
+
+.buttons {
+  margin-top: 15px;
+  display: flex;
+}
+
+
+/* Code copy */
+
+.info {
+  display: flex;
+  align-items: center;
+  /*background-color: rebeccapurple;*/
+  /*height: 100%;*/
+}
+
+.editable {
+  margin: 0;
+  /*padding: .1em .5em;*/
+  font-family: monospace;
+  border-radius: 0px;
+  border: 1px solid transparent;
+  border-bottom: 1px dashed var(--text-link);
+  box-sizing: border-box;
+  transition: all ease 100ms;
+}
+
+.editable:focus {
+  padding: .1em .5em;
+  background: hsl(214, 7%, 0%);
+  border-color: transparent;
+  border-radius: 2px;
+}
+
+.code {
+  margin-left: 0.3em;
+  margin-right: 0.3em;
+  display: flex;
+  align-items: center;
+}
+
+.code:hover + .copy {
+  visibility: visible;
+}
+
+.copy {
+  background: hsl(214, 7%, 25%);
+  font-size: .8rem;
+  border-radius: 2px;
+  padding: .1em .5em;
+  cursor: copy;
+}
+
+.copy:hover {
+  background: hsl(214, 7%, 30%);
+  cursor: copy;
+}
+
+#namespace {
+  width: 70px;
+}
+
+#api_key {
+  width: 270px;
+}
+
+.loading {
+  background-image: url('../assets/loading.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation-name: spin;
+  animation-duration: 700ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  width: 35px;
+  height: 35px;
+  align-self: center;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
