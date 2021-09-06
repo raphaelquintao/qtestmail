@@ -21,6 +21,10 @@ export class AppComponent {
 
     loading: boolean;
 
+    refresh_ms = 300000;
+
+    time_out : number;
+
     @ViewChild('email') email!: ElementRef;
     @ViewChild('article') article!: ElementRef;
 
@@ -28,8 +32,8 @@ export class AppComponent {
         this.storage = window.localStorage;
         this.data = {emails: []};
         this.selected = undefined;
-        this.loading = true;
-        this.get_mails();
+        this.loading = false;
+        this.time_out = -1;
     }
 
     get_storage(key: string, def: any) {
@@ -43,18 +47,31 @@ export class AppComponent {
 
     async get_mails() {
         let url = `${this.api_base_url}?apikey=${this.api_key}&namespace=${this.name_space}&pretty=false`;
+        if(this.loading) return;
+
         this.loading = true;
 
         let data = await fetch(url, {
             mode: "cors",
-            redirect: "follow"
         })
-            .then(r => r.json())
-            .then(r => {return r;})
-            .catch(reason => {})
+            .then(r => {
+                if(r.status !== 200) throw new Error();
+                this.time_out = setTimeout(() => {
+                    console.log('Reloading...', this.time_out);
+                    this.get_mails();
+                }, this.refresh_ms);
+                return r.json();
+            })
+            .then(r => {
+                return r;
+            })
+            .catch(reason => {
+                clearTimeout(this.time_out);
+            })
             .finally(() => {
                 this.loading = false;
             });
+
 
         //@ts-ignore
         this.data = data;
@@ -266,19 +283,26 @@ export class AppComponent {
 
     set_value_handle(event: any, control: any) {
         if (control === 'email_tag') {
-            // this.email_tag = event.target.innerText;
+            if(['Enter'].includes(event.key)) {
+                event.preventDefault();
+                event.target.blur();
+                // return;
+            }
+            console.log(control, event.key, event.target.innerText);
             this.set_storage('email_tag', event.target.innerText)
-            console.log(this.email_tag);
         } else if (control === 'api_key') {
+            if(event.key == 'Enter') this.get_mails();
+            // console.log(control, event.key);
             this.api_key = event.target.value;
-            console.log(event.target.value);
         } else if (control === 'namespace') {
+            if(event.key == 'Enter') this.get_mails();
+            // console.log(control, event.key);
             this.name_space = event.target.value;
-            console.log(event.target.value);
         }
     }
 
     ngOnInit(): void {
+        this.get_mails();
         // this.route.paramMap.subscribe(params => {
         //    let tmp = params.get('oid');
         //    console.log(tmp);
